@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/formbox.css}">
+    <link rel="stylesheet" th:href="@{/createwishandlist.css}">
+    <title>Tilføj Ønske</title>
+</head>
+<body>
+<div class="wrapper">
+    <div th:insert="~{fragments/topnav :: topnav}"></div>
+
+    <div class="form-container">
+        <div class="form-box">
+
+<h1>Tilføj Ønske</h1>
+
+            <form th:action="@{/users/{user}/{wishlist}/createwish(user=${bruger.username}, wishlist=${onskelistenavn})}"
+                  th:object="${onske}" method="post">
+
+                <input type="hidden" th:field="*{wishListName}" th:value="${onskelistenavn}" />
+
+    <div>
+        <label>Navn på ønsket</label>
+        <input type="text" th:field="*{wishTitle}">
+    </div>
+    <br>
+    <div>
+        <label>Giv en beskrivelse af ønsket</label>
+        <input type="text" th:field="*{wishDescription}">
+    </div>
+    <br>
+    <div>
+        <label>Hvad koster gaven?</label>
+        <input type="text" th:field="*{wishPrice}">
+    </div>
+    <br>
+    <div>
+        <label>Hvor kan gaven købes?</label>
+        <input type="text" th:field="*{wishLink}">
+    </div>
+
+    <div class="button-container">
+        <button type="submit" class="create">Opret ønske</button>
+        <a th:href="@{/users/{user}/{wishlist}(user=${bruger.username}, wishlist=${onskelistenavn})}">
+            <button type="button" class="back">Fortryd</button>
+        </a>
+    </div>
+</form>
+    </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>

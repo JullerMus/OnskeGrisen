@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ønskegrisen - Login</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/formbox.css}">
+</head>
+<body>
+<div class="wrapper">
+    <div th:insert="~{fragments/topnav :: topnav}"></div>
+
+    <div class="form-container">
+        <div class="form-box">
+            <h1>Log ind på Ønskegrisen</h1>
+            <form th:action="@{/login}" th:object="${bruger}" method="post">
+                <div>
+                    <label for="username">Brugernavn:</label>
+                    <input type="text" id="username" th:field="*{username}" placeholder="Indtast brugernavn" required />
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" th:field="*{password}" placeholder="Indtast password" required />
+                </div>
+                <div class="button-container">
+                    <button type="submit">Log ind</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/formbox.css}">
+    <link rel="stylesheet" th:href="@{/createwishandlist.css}">
+    <title>Tilføj Ønskeliste</title>
+</head>
+<body>
+<div class="wrapper">
+    <div th:insert="~{fragments/topnav :: topnav}"></div>
+
+    <div class="form-container">
+     <div class="form-box">
+
+<h1>Tilføj Ønskeliste</h1>
+
+<form action="#" th:action="@{/users/createwishlist/{user}(user=${bruger.username})}" th:object="${onskeliste}" method="post">
+
+        <input type="hidden" th:field="*{userWishListOwner}" th:value="${bruger.username}"/>
+
+    <div>
+        <label>Giv din ønskeliste et navn:</label>
+        <input type="text" th:field="*{userWishListName}"/>
+    </div>
+    <br>
+    <div>
+        <label>Giv en beskrivelse af ønskelisten</label>
+        <input type="text" th:field="*{wishListDescription}">
+    </div>
+
+    <div class="button-container">
+        <button type="submit" class="create">Opret ønskeliste</button>
+        <a th:href="@{http://localhost:8080/users/{user}(user=${bruger.username})}">
+            <button type="button">Fortryd</button>
+        </a>
+    </div>
+</form>
+         </div>
+    </div>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>

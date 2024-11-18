@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/userpage.css}">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div th:replace="fragments/topnav :: topnav"></div>
+
+    <div class="userpage">
+    <div class="table-container">
+        <header>
+            <h1>Velkommen, <span th:text="${bruger.username}">Bruger</span>!</h1>
+        </header>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Navn på ønskeliste</th>
+            <th scope="col">Beskrivelse</th>
+            <th scope="col">Se ønskeliste</th>
+            <th scope="col">Fjern ønskeliste</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="wishlist: ${onskelister}">
+            <td th:text="${wishlist.userWishListName}"></td>
+            <td th:text="${wishlist.wishListDescription}"></td>
+            <td>
+                <form th:action="@{/users/{user}/{wishlist}(user=${bruger.username}, wishlist=${wishlist.userWishListName})}"
+                      method="get">
+                    <input type="submit" value="Se ønskeliste">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{|/${bruger.username}/${wishlist.userWishListName}/delete|}" method="get">
+                    <input type="submit" value="Slet ønskeliste">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="button-container">
+        <a th:href="@{/users/{user}/createwishlist(user=${bruger.username})}">
+                <button type="button">Tilføj Ønskeliste</button>
+        </a>
+        </div>
+</div>
+</body>
+</html>

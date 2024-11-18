@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/userpage.css}">
+    <link rel="stylesheet" th:href="@{/wishlist.css}">
+
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="fragments/topnav :: topnav"></div>
+
+    <div class="userpage">
+        <div class="table-container ">
+
+            <table>
+                <div class="header-container">
+                    <h1 th:text="${bruger.getUsername()} + '     |'"></h1>
+                    <h2 th:text="${onskelistenavn}"></h2>
+                </div>
+                <p th:text="${onskelistebeskrivelse}"></p>
+    <thead>
+    <tr>
+        <th scope="col">Navn på ønske</th>
+        <th scope="col">Beskrivelse</th>
+        <th scope="col">Pris</th>
+        <th scope="col">Link</th>
+        <th scope="col">Reserveret?</th>
+        <th scope="col">Fjern ønske</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="onske: ${onskeliste}">
+        <td th:text="${onske.getWishTitle()}"></td>
+        <td th:text="${onske.getWishDescription()}"></td>
+        <td th:text="${onske.getWishPrice()}"></td>
+        <td th:text="${onske.getWishLink()}"></td>  <!-- som link med href? -->
+        <td th:text="${onske.getIsReserved()}"></td>
+        <td>
+            <form th:action="@{/users/{user}/{wishlist}/{wish}/delete(user=${bruger.getUsername()}, wishlist=${onskelistenavn}, wish=${onske.getWishTitle()})}">
+                <input type="submit" th:value="Slet">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+
+            </table>
+    <div class="button-container">
+        <a th:href="@{/users/{user}/{wishlist}/createwish(user=${bruger.getUsername()}, wishlist=${onskelistenavn})}">
+            <button type="button">Tilføj Nyt Ønske</button>
+        </a>
+        <a th:href="@{http://localhost:8080/users/{user}/{wishlist}/reservewish(user=${bruger.getUsername()},wishlist=${onskelistenavn})}">
+            <button>Reservér Ønske</button>
+        </a>
+        <a th:href="@{http://localhost:8080/users/{user}(user=${bruger.getUsername()})}">
+            <button>Tilbage til bruger</button>
+        </a>
+    </div>
+
+</div>
+</div>
+</body>
+</html>
